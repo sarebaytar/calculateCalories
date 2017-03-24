@@ -43,9 +43,21 @@ $(document).ready(function() {
     };
 
     if ($('#age').val()) {
+      $('#inputSuccess2Status').remove();
+      $('#6').remove();
+      $('#inputError2Status').remove();
+      $('#5').remove();
       $('#iadiv').attr('class', 'form-group has-success has-feedback');
       $('<span id="inputSuccess2Status" class="sr-only">(success)</span>').insertAfter('#age');
-      $('<span id="4" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>').insertAfter('#age');
+      $('<span id="6" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>').insertAfter('#age');
+    } else if (!$('#age').val()){
+      $('#inputSuccess2Status').remove();
+      $('#6').remove();
+      $('#inputError2Status').remove();
+      $('#5').remove();
+      $('#iadiv').attr('class', 'form-group has-error has-feedback');
+      $('<span id="inputError2Status" class="sr-only">(error)</span>').insertAfter('#age');
+      $('<span id="5" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>').insertAfter('#age');
     };
 
   });
