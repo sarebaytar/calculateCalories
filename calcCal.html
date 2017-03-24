@@ -26,49 +26,43 @@
           пол, вес, рост и возраст
         </p>
 
-    </div>
-    <div class="container text-center">
+        <form class="form-horizontal" id="newf">
 
-        <form name="data" class="form-horizontal">
           <div class="radio-inline">
             <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Мужчина
+              <input type="radio" name="optionsRadios" id="optionsRadios1" value="male" checked>Мужчина
             </label>
           </div>
           <div class="radio-inline">
             <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Женщина
+              <input type="radio" name="optionsRadios" id="optionsRadios2" value="female">Женщина
             </label>
           </div>
-          <div class="form-group">
+
+          <div id="iwdiv" class="form-group">
             <label for="weight" class="col-sm-4 text-right">Вес</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="weight" id="weight" placeholder="Введите свой вес">
+              <input type="text" class="form-control" name="weight" id="weight" placeholder="Введите свой вес" aria-describedby="inputSuccess2Status">
             </div>
           </div>
-          <div class="form-group">
+
+          <div id="igdiv" class="form-group">
             <label for="growth" class="col-sm-4 text-right">Рост</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="growth" placeholder="Введите свой рост">
             </div>
           </div>
-          <div class="form-group">
+
+          <div id="iadiv" class="form-group">
             <label for="age" class="col-sm-4 text-right">Возраст</label>
             <div class="col-sm-4">
               <input type="number" min="1" max="100" class="form-control" id="age" placeholder="Введите свой возраст" pattern="{1,3}">
             </div>
           </div>
-        </form>
 
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-        data-target=".bs-example-modal-sm">Рассчитать</button>
-        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-          <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-              ...
-            </div>
-          </div>
-        </div>
+        <input type="submit" value="Рассчитать">
+
+      </form>
 
     </div>
 
@@ -78,5 +72,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
+    <script src="validateCalCalc.js"></script>
   </body>
 </html>
