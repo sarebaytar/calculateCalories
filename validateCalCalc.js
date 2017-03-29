@@ -1,92 +1,59 @@
-$(document).ready(function() {
+$(document).ready(function(){
+  //Функция для индикации правильно введенных данных
+  const indicateSuccess = function success(divID) {
+    $(divID).attr('class', 'form-group has-success has-feedback');
+    $(divID+' :nth-child(4)').attr('class', 'glyphicon glyphicon-ok form-control-feedback');
+  };
+  //Функция для индикации не верных данных
+  const indicateError = function error(divID) {
+    $(divID).attr('class', 'form-group has-error has-feedback');
+    $(divID+' :nth-child(4)').attr('class', 'glyphicon glyphicon-remove form-control-feedback');
+  };
+  //Валидация формы с индикацией
+  $('form').submit(function(e){
 
-  $('#newf').submit(function(e){
-
-    if ($('#weight').val() < 1 || isNaN($('#weight').val())) {
-      $('#inputSuccess2Status').remove();
-      $('#2').remove();
-      $('#inputError2Status').remove();
-      $('#1').remove();
-      $('#iwdiv').attr('class', 'form-group has-error has-feedback');
-      $('<span id="inputError2Status" class="sr-only">(error)</span>').insertAfter('#weight');
-      $('<span id="1" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>').insertAfter('#weight');
+    if ($('#weight input').val() < 1 || isNaN($('#weight input').val())) {
+      indicateError('#weight');
     } else {
-      $('#inputSuccess2Status').remove();
-      $('#2').remove();
-      $('#inputError2Status').remove();
-      $('#1').remove();
-      $('#iwdiv').attr('class', 'form-group has-success has-feedback');
-      $('<span id="inputSuccess2Status" class="sr-only">(success)</span>').insertAfter('#weight');
-      $('<span id="2" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>').insertAfter('#weight');
+      indicateSuccess('#weight');
     };
 
-    if ($('#growth').val() < 1 || isNaN($('#growth').val())) {
-      $('#inputSuccess2Status').remove();
-      $('#4').remove();
-      $('#inputError2Status').remove();
-      $('#3').remove();
-      $('#igdiv').attr('class', 'form-group has-error has-feedback');
-      $('<span id="inputError2Status" class="sr-only">(error)</span>').insertAfter('#growth');
-      $('<span id="3" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>').insertAfter('#growth');
+    if ($('#growth input').val() < 1 || isNaN($('#growth input').val())) {
+      indicateError('#growth');
     } else {
-      $('#inputSuccess2Status').remove();
-      $('#4').remove();
-      $('#inputError2Status').remove();
-      $('#3').remove();
-      $('#igdiv').attr('class', 'form-group has-success has-feedback');
-      $('<span id="inputSuccess2Status" class="sr-only">(success)</span>').insertAfter('#growth');
-      $('<span id="4" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>').insertAfter('#growth');
+      indicateSuccess('#growth');
     };
 
-    if ($('#age').val()) {
-      $('#inputSuccess2Status').remove();
-      $('#6').remove();
-      $('#inputError2Status').remove();
-      $('#5').remove();
-      $('#iadiv').attr('class', 'form-group has-success has-feedback');
-      $('<span id="inputSuccess2Status" class="sr-only">(success)</span>').insertAfter('#age');
-      $('<span id="6" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>').insertAfter('#age');
-    } else if (!$('#age').val()){
-      $('#inputSuccess2Status').remove();
-      $('#6').remove();
-      $('#inputError2Status').remove();
-      $('#5').remove();
-      $('#iadiv').attr('class', 'form-group has-error has-feedback');
-      $('<span id="inputError2Status" class="sr-only">(error)</span>').insertAfter('#age');
-      $('<span id="5" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>').insertAfter('#age');
-
+    if ($('#age input').val()) {
+      indicateSuccess('#age');
+    } else {
+      indicateError('#age');
     };
+
     e.preventDefault();
-
   });
-
-  $('.btn').click(function(){
-    if ($('#growth').val() < 1 || isNaN($('#growth').val()) || $('#weight').val() < 1 || isNaN($('#weight').val()) || !$('#age').val()) {
+  //Выводим модалку
+  $('#but').click(function(){
+    if ($('#growth input').val() < 1 || isNaN($('#growth input').val()) || $('#weight input').val() < 1 || isNaN($('#weight input').val()) || !$('#age input').val()) {
       return;
     };
-    if ($('input[name="optionsRadios"]:checked').val() === 'female') {
-    let resultFemale = Math.round(655.1+9.563*$('#weight').val()+1.85*$('#growth').val()-4.676*$('#age').val());
-    $('.modal-body').append(resultFemale + ' kkal');
-  } else if ($('input[name="optionsRadios"]:checked').val() === 'male') {
-      let resultMale = Math.round(66.5+13.75*$('#weight').val()+5.003*$('#growth').val()-6.775*$('#age').val());
+
+    if ($('input[name="sex"]:checked').val() === 'female') {
+      let resultFemale = Math.round(655.1+9.563*$('#weight input').val()+1.85*$('#growth input').val()-4.676*$('#age input').val());
+      $('.modal-body').append(resultFemale + ' kkal');
+    } else {
+      let resultMale = Math.round(66.5+13.75*$('#weight input').val()+5.003*$('#growth input').val()-6.775*$('#age input').val());
       $('.modal-body').append(resultMale + ' kkal');
     };
+
     $('#myModal').modal('show');
   });
-
-
+  //Очищаем форму и модалку
   $('#myModal').on('hidden.bs.modal', function(){
     $('form')[0].reset();
-    $('#inputSuccess2Status').remove();
-    $('#2').remove();
-    $('#inputSuccess2Status').remove();
-    $('#4').remove();
-    $('#inputSuccess2Status').remove();
-    $('#6').remove();
-    $('.modal-content').html('');
-    $('#iwdiv').attr('class', 'form-group');
-    $('#igdiv').attr('class', 'form-group');
-    $('#iadiv').attr('class', 'form-group');
+    $('.modal-body').html('');
+    $('#weight, #growth, #age').attr('class', 'form-group');
+    $('#weight :nth-child(4), #growth :nth-child(4), #age :nth-child(4)').attr('class', 'hidden');
   });
 
 });
