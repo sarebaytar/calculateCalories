@@ -3,9 +3,8 @@ $(document).ready(function(){
   const weight = $('#weight input');
   const height = $('#height input');
   const age = $('#age input');
-  let result;
 
-  function isInvalid() {
+  const isInvalid = function isInvalid() {
     return height.val() < 1 ||
         isNaN(height.val()) ||
         weight.val() < 1    ||
@@ -26,6 +25,7 @@ $(document).ready(function(){
   };
   //Валидация формы с индикацией
   $('form').submit(function(e){
+    e.preventDefault();
 
     if (weight.val() < 1 || isNaN(weight.val())) {
       indicateError('#weight');
@@ -45,18 +45,16 @@ $(document).ready(function(){
       indicateError('#age');
     };
 
-    e.preventDefault();
-
     if (isInvalid()) {
       return;
+    }
+
+    if ($('input[name="sex"]:checked').val() === 'female') {
+      result = Math.round(655.1 + 9.563 * weight.val() + 1.85 * height.val() - 4.676 * age.val());
     } else {
-      if ($('input[name="sex"]:checked').val() === 'female') {
-        result = Math.round(655.1+9.563*weight.val()+1.85*height.val()-4.676*age.val());
-      } else {
-        result = Math.round(66.5+13.75*weight.val()+5.003*height.val()-6.775*age.val());
-      };
-      $('.modal-body').append(result + ' kkal');
+      result = Math.round(66.5 + 13.75 * weight.val() + 5.003 * height.val() - 6.775 * age.val());
     };
+    $('.modal-body').append(result + ' kkal');
 
     $('#myModal').modal('show');
   });
