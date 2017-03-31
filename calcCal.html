@@ -30,12 +30,12 @@
 
           <div class="radio-inline">
             <label>
-              <input type="radio" name="sex" id="optionsRadios1" value="male" checked>Мужчина
+              <input type="radio" name="sex" value="male" checked>Мужчина
             </label>
           </div>
           <div class="radio-inline">
             <label>
-              <input type="radio" name="sex" id="optionsRadios2" value="female">Женщина
+              <input type="radio" name="sex" value="female">Женщина
             </label>
           </div>
 
@@ -43,21 +43,21 @@
             <label for="weightInput" class="col-sm-4 text-right">Вес</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="weightInput" placeholder="Введите свой вес">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide"></span>
+              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
               <span id="successWeight" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide"></span>
+              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
               <span id="errorWeight" class="sr-only">(error)</span>
             </div>
           </div>
 
-          <div id="growth" class="form-group">
-            <label for="growthInput" class="col-sm-4 text-right">Рост</label>
+          <div id="height" class="form-group">
+            <label for="heightInput" class="col-sm-4 text-right">Рост</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="growthInput" placeholder="Введите свой рост">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide"></span>
-              <span id="successGrowth" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide"></span>
-              <span id="errorGrowth" class="sr-only">(error)</span>
+              <input type="text" class="form-control" id="heightInput" placeholder="Введите свой рост">
+              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
+              <span id="successHeight" class="sr-only">(success)</span>
+              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
+              <span id="errorHeight" class="sr-only">(error)</span>
             </div>
           </div>
 
@@ -65,14 +65,14 @@
             <label for="ageInput" class="col-sm-4 text-right">Возраст</label>
             <div class="col-sm-4">
               <input type="number" min="1" max="100" class="form-control" id="ageInput" placeholder="Введите свой возраст">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide"></span>
+              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
               <span id="successAge" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide"></span>
+              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
               <span id="errorAge" class="sr-only">(error)</span>
             </div>
           </div>
 
-        <input type="submit" value="Рассчитать" id="but" class="btn btn-primary" data-toggle="modal">
+        <input type="submit" value="Рассчитать" id="but" class="btn btn-primary">
 
         <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-sm" role="document">
