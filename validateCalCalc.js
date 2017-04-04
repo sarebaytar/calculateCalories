@@ -10,9 +10,19 @@ $(document).ready(function(){
     return index+=1;
   };
   //функция удаления строки
-  const removeRow = function removeRow(){
+  /*const removeRow = function removeRow(){
     $('#'+index).click(function(){
       $(this).parent().parent().remove();
+    });
+  };*/
+  //функция удаления строки с запросом на подтверждение 
+  const removeRow = function removeRow(){
+    $('#'+index).click(function(){
+      let thisIndex = this;
+      $('#delModal').modal('show');
+      $('#accept').click(function(){
+        $(thisIndex).parent().parent().remove();
+      });
     });
   };
   //добавляем кнопку для удаления строки
