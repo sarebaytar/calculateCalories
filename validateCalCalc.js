@@ -1,15 +1,48 @@
 $(document).ready(function(){
 
+  const name = $('#name input');
   const weight = $('#weight input');
   const height = $('#height input');
   const age = $('#age input');
+  //генерируем индекс
+  let index = 0;
+  const id = function id(){
+    return index+=1;
+  };
+  //функция удаления строки
+  const removeRow = function removeRow(){
+    $('#'+index).click(function(){
+      $(this).parent().parent().remove();
+    });
+  };
+  //добавляем кнопку для удаления строки
+  const x = function x(){
+    return '<input type="button" id="'+index+'" class="btn btn-danger btn-xs" value="x">';
+  };
+  //рисуем строку со значениями
+  const addTableRow = function row(){
+    return '<tr><td>'+index+'</td><td>'
+    +name.val()+'</td><td>'
+    +weight.val()+'</td><td>'
+    +height.val()+'</td><td>'
+    +age.val()+'</td><td>'
+    +result+'</td><td>'+x()+'</td></tr>';
+  };
+  //добавляем строку в таблицу и присваиваем порядковый номер
+  const addIndex = function addIndex(){
+    $('#tb').append(function(){
+      id();
+      return addTableRow();
+    });
+  };
 
   const isInvalid = function isInvalid() {
     return height.val() < 1 ||
         isNaN(height.val()) ||
         weight.val() < 1    ||
         isNaN(weight.val()) ||
-        !age.val();
+        !age.val()          ||
+        name.val() === '';
   };
   //Функция для индикации правильно введенных данных
   const indicateSuccess = function success(divID) {
@@ -26,6 +59,12 @@ $(document).ready(function(){
   //Валидация формы с индикацией
   $('form').submit(function(e){
     e.preventDefault();
+
+    if (name.val() === '') {
+      indicateError('#name');
+    } else {
+      indicateSuccess('#name');
+    };
 
     if (weight.val() < 1 || isNaN(weight.val())) {
       indicateError('#weight');
@@ -61,10 +100,12 @@ $(document).ready(function(){
 
   //Очищаем форму и модалку
   $('#myModal').on('hidden.bs.modal', function(){
+    addIndex();
+    removeRow();
     $('form')[0].reset();
     $('.modal-body').html('');
-    $('#weight, #height, #age').attr('class', 'form-group');
-    $('#weight .success, #height .success, #age .success').attr('class', 'success hide');
+    $('#name, #weight, #height, #age').attr('class', 'form-group');
+    $('#name .success, #weight .success, #height .success, #age .success').attr('class', 'success hide');
   });
 
 });
