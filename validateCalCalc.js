@@ -6,7 +6,7 @@ $(document).ready(function(){
   const age = $('#age input');
   //генерируем индекс
   let index = 0;
-  const id = function incrementid(){
+  const id = function incrementId(){
     return index+=1;
   };
   //функция удаления строки
@@ -69,12 +69,6 @@ $(document).ready(function(){
   //Валидация формы с индикацией
   $('form').submit(function(e){
     e.preventDefault();
-
-    /*if (name.val() === '') {
-      indicateError('#name');
-    } else {
-      indicateSuccess('#name');
-    };*/
 
     if (weight.val() < 1 || isNaN(weight.val())) {
       indicateError('#weight');
