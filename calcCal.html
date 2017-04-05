@@ -39,6 +39,17 @@
             </label>
           </div>
 
+          <div id="name" class="form-group">
+            <label for="nameInput" class="col-sm-4 text-right">Имя</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="nameInput" required placeholder="Введите свое имя">
+            <!--<span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
+              <span id="successName" class="sr-only">(success)</span>
+              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
+              <span id="errorName" class="sr-only">(error)</span>-->
+            </div>
+          </div>
+
           <div id="weight" class="form-group">
             <label for="weightInput" class="col-sm-4 text-right">Вес</label>
             <div class="col-sm-4">
@@ -72,7 +83,7 @@
             </div>
           </div>
 
-        <input type="submit" value="Рассчитать" id="but" class="btn btn-primary">
+        <p><input type="submit" value="Рассчитать" id="but" class="btn btn-primary"></p>
 
         <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-sm" role="document">
@@ -92,6 +103,36 @@
         </div>
 
       </form>
+
+      <table class="table table-bordered table-striped text-center">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Weight</td>
+            <td>Height</td>
+            <td>Age</td>
+            <td>Calorie norm</td>
+            <td>Click for remove</td>
+          </tr>
+        </thead>
+        <tbody id='tb'>
+        </tbody>
+      </table>
+
+      <div id="delModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Вы действительно хотите удалить?</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" id="accept">Да</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
 
