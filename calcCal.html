@@ -42,11 +42,11 @@
           <div id="name" class="form-group">
             <label for="nameInput" class="col-sm-4 text-right">Имя</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nameInput" placeholder="Введите свое имя">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
-              <span id="successHeight" class="sr-only">(success)</span>
+              <input type="text" class="form-control" id="nameInput" required placeholder="Введите свое имя">
+            <!--<span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
+              <span id="successName" class="sr-only">(success)</span>
               <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
-              <span id="errorHeight" class="sr-only">(error)</span>
+              <span id="errorName" class="sr-only">(error)</span>-->
             </div>
           </div>
 
@@ -124,13 +124,12 @@
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h2>Вы действительно хотите удалить?</h2>
+              <h4 class="modal-title">Вы действительно хотите удалить?</h4>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
               <button type="button" class="btn btn-primary" data-dismiss="modal" id="accept">Да</button>
             </div>
-
           </div>
         </div>
       </div>

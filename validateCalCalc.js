@@ -6,7 +6,7 @@ $(document).ready(function(){
   const age = $('#age input');
   //генерируем индекс
   let index = 0;
-  const id = function id(){
+  const id = function incrementid(){
     return index+=1;
   };
   //функция удаления строки
@@ -15,23 +15,23 @@ $(document).ready(function(){
       $(this).parent().parent().remove();
     });
   };*/
-  //функция удаления строки с запросом на подтверждение 
+  //функция удаления строки с запросом на подтверждение
   const removeRow = function removeRow(){
-    $('#'+index).click(function(){
+    $('[data-id="'+index+'"]').click(function(){
       let thisIndex = this;
       $('#delModal').modal('show');
       $('#accept').click(function(){
-        $(thisIndex).parent().parent().remove();
+        $(thisIndex).remove();
       });
     });
   };
   //добавляем кнопку для удаления строки
   const x = function x(){
-    return '<input type="button" id="'+index+'" class="btn btn-danger btn-xs" value="x">';
+    return '<input type="button" data-id="'+index+'" class="btn btn-danger btn-xs" value="x">';
   };
   //рисуем строку со значениями
   const addTableRow = function row(){
-    return '<tr><td>'+index+'</td><td>'
+    return '<tr data-id="'+index+'"><td>'+index+'</td><td>'
     +name.val()+'</td><td>'
     +weight.val()+'</td><td>'
     +height.val()+'</td><td>'
@@ -70,11 +70,11 @@ $(document).ready(function(){
   $('form').submit(function(e){
     e.preventDefault();
 
-    if (name.val() === '') {
+    /*if (name.val() === '') {
       indicateError('#name');
     } else {
       indicateSuccess('#name');
-    };
+    };*/
 
     if (weight.val() < 1 || isNaN(weight.val())) {
       indicateError('#weight');
