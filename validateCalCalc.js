@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+  let clients = [];
   const name = $('#name input');
   const weight = $('#weight input');
   const height = $('#height input');
@@ -104,8 +104,10 @@ $(document).ready(function(){
 
   //Очищаем форму и модалку
   $('#myModal').on('hidden.bs.modal', function(){
-    addIndex();
-    removeRow();
+    //addIndex();
+    //removeRow();
+    id();
+    clients.push('{id: "'+index+'", name: "'+name.val()+'", weight: "'+weight.val()+'", height: "'+height.val()+'", age: "'+age.val()+'", calories: "'+result+'"}');
     $('form')[0].reset();
     $('.modal-body').html('');
     $('#name, #weight, #height, #age').attr('class', 'form-group');
