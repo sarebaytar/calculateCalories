@@ -1,5 +1,32 @@
 $(document).ready(function(){
+
   let clients = [];
+
+  const addClient = function add(){
+    clients.push({ id: index,
+                   name: name.val(),
+                   weight: weight.val(),
+                   height: height.val(),
+                   age: age.val(),
+                   calories: result,
+                   removeButton: x()});
+  };
+
+  const renderClient = function render(){
+    clients.forEach(function(element, i, array){
+      $('#tb').append(function(){
+        return '<tr data-id="'+element.id+'"><td>'+element.id+'</td><td>'
+        +element.name+'</td><td>'
+        +element.weight+'</td><td>'
+        +element.height+'</td><td>'
+        +element.age+'</td><td>'
+        +element.calories+'</td><td>'+element.removeButton+'</td></tr>'
+      });
+    });
+  };
+
+  $(document).on('addClient', renderClient);
+
   const name = $('#name input');
   const weight = $('#weight input');
   const height = $('#height input');
@@ -30,7 +57,7 @@ $(document).ready(function(){
     return '<input type="button" data-id="'+index+'" class="btn btn-danger btn-xs" value="x">';
   };
   //рисуем строку со значениями
-  const addTableRow = function row(){
+  /*const addTableRow = function row(){
     return '<tr data-id="'+index+'"><td>'+index+'</td><td>'
     +name.val()+'</td><td>'
     +weight.val()+'</td><td>'
@@ -44,7 +71,7 @@ $(document).ready(function(){
       id();
       return addTableRow();
     });
-  };
+  };*/
 
   const isInvalid = function isInvalid() {
     return height.val() < 1 ||
@@ -107,7 +134,10 @@ $(document).ready(function(){
     //addIndex();
     //removeRow();
     id();
-    clients.push('{id: "'+index+'", name: "'+name.val()+'", weight: "'+weight.val()+'", height: "'+height.val()+'", age: "'+age.val()+'", calories: "'+result+'"}');
+    addClient();
+    $(document).trigger('addClient');
+    removeRow();
+    clients = [];
     $('form')[0].reset();
     $('.modal-body').html('');
     $('#name, #weight, #height, #age').attr('class', 'form-group');
