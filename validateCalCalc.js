@@ -13,7 +13,7 @@ $(document).ready(function(){
   };
 
   const renderClient = function render(){
-    clients.forEach(function(element, i, array){
+    clients.forEach(function(element){
       $('#tb').append(function(){
         return '<tr data-id="'+element.id+'"><td>'+element.id+'</td><td>'
         +element.name+'</td><td>'
@@ -44,10 +44,12 @@ $(document).ready(function(){
   };*/
   //функция удаления строки с запросом на подтверждение
   const removeRow = function removeRow(){
-    $('[data-id="'+index+'"]').click(function(){
+    $('[data-id]').click(function(){
       let thisIndex = this;
+      let currentId = thisIndex.getAttribute('data-id')-1;
       $('#delModal').modal('show');
       $('#accept').click(function(){
+        delete clients[currentId];
         $(thisIndex).remove();
       });
     });
@@ -124,6 +126,13 @@ $(document).ready(function(){
     } else {
       result = Math.round(66.5 + 13.75 * weight.val() + 5.003 * height.val() - 6.775 * age.val());
     };
+
+    $('#tb').empty();
+    id();
+    addClient();
+    $(document).trigger('addClient');
+    removeRow();
+
     $('.modal-body').append(result + ' kkal');
 
     $('#myModal').modal('show');
@@ -131,13 +140,6 @@ $(document).ready(function(){
 
   //Очищаем форму и модалку
   $('#myModal').on('hidden.bs.modal', function(){
-    //addIndex();
-    //removeRow();
-    id();
-    addClient();
-    $(document).trigger('addClient');
-    removeRow();
-    clients = [];
     $('form')[0].reset();
     $('.modal-body').html('');
     $('#name, #weight, #height, #age').attr('class', 'form-group');
