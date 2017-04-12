@@ -46,10 +46,10 @@ $(document).ready(function(){
   const removeRow = function removeRow(){
     $('[data-id]').click(function(){
       let thisIndex = this;
-      let currentId = thisIndex.getAttribute('data-id')-1;
+      const currentId = thisIndex.getAttribute('data-id')-1;
       $('#delModal').modal('show');
       $('#accept').click(function(){
-        delete clients[currentId];
+        clients.splice(currentId, 1);
         $(thisIndex).remove();
       });
     });
