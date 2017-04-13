@@ -31,24 +31,25 @@ $(document).ready(function(){
   const weight = $('#weight input');
   const height = $('#height input');
   const age = $('#age input');
+
+  const currentId = function getCurrentId(){
+    return 0;
+  };
   //генерируем индекс
   let index = 0;
   const id = function incrementId(){
     return index+=1;
   };
-  //функция удаления строки
-  /*const removeRow = function removeRow(){
-    $('#'+index).click(function(){
-      $(this).parent().parent().remove();
-    });
-  };*/
+
   //функция удаления строки с запросом на подтверждение
   const removeRow = function removeRow(){
+    //при клике на кнопку удаляется строка с аналогичным селектором
     $('[data-id]').click(function(){
       let thisIndex = this;
-      const currentId = thisIndex.getAttribute('data-id')-1;
-      $('#delModal').modal('show');
-      $('#accept').click(function(){
+      //const currentId = thisIndex.getAttribute('data-id')-1;
+      console.log('hey');
+      $('#delete-modal').modal('show');
+      $('#delete-modal button#accept').click(function(){
         clients.splice(currentId, 1);
         $(thisIndex).remove();
       });
@@ -58,22 +59,6 @@ $(document).ready(function(){
   const x = function x(){
     return '<input type="button" data-id="'+index+'" class="btn btn-danger btn-xs" value="x">';
   };
-  //рисуем строку со значениями
-  /*const addTableRow = function row(){
-    return '<tr data-id="'+index+'"><td>'+index+'</td><td>'
-    +name.val()+'</td><td>'
-    +weight.val()+'</td><td>'
-    +height.val()+'</td><td>'
-    +age.val()+'</td><td>'
-    +result+'</td><td>'+x()+'</td></tr>';
-  };
-  //добавляем строку в таблицу и присваиваем порядковый номер
-  const addIndex = function addIndex(){
-    $('#tb').append(function(){
-      id();
-      return addTableRow();
-    });
-  };*/
 
   const isInvalid = function isInvalid() {
     return height.val() < 1 ||
