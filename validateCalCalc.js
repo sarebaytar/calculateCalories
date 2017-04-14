@@ -1,63 +1,54 @@
 $(document).ready(function(){
-
   let clients = [];
 
-  const addClient = function add(){
-    clients.push({ id: index,
-                   name: name.val(),
-                   weight: weight.val(),
-                   height: height.val(),
-                   age: age.val(),
-                   calories: result,
-                   removeButton: x()});
-  };
-
-  const renderClient = function render(){
-    clients.forEach(function(element){
-      $('#tb').append(function(){
-        return '<tr data-id="'+element.id+'"><td>'+element.id+'</td><td>'
+  const renderClients = function() {
+    clients.forEach(function(element) {
+      // создатим жквери-объект
+      const row = $(
+        '<tr class="client" data-id="'+element.id+'"><td>'+element.id+'</td><td>'
         +element.name+'</td><td>'
         +element.weight+'</td><td>'
         +element.height+'</td><td>'
         +element.age+'</td><td>'
-        +element.calories+'</td><td>'+element.removeButton+'</td></tr>'
+        +element.calories+'</td>'
+        +'<td><input type="button" data-id="'+element.id+'" class="btn btn-danger btn-xs remove" value="x"></td></tr>'
+      );
+
+      // просто аппендим готовый жквери объект (или строку).
+      $('#tb').append(row);
+
+      //при клике на кнопку удаляется строка с аналогичным селектором
+      //с помощью find поиск будет только внутри элемента, на котором вызываешь find.
+      //заметь, что я стараюсь не использовать переменные из внешнего скоупа
+      row.find('input.remove').click(function(){
+        const removeButton = $(this);
+        const id = removeButton.data('id');
+        console.log('hey');
+        // во время клика, установим текущий id елемента кнопки удаления
+        $('#delete-modal button#accept').data('remove-id', id);
+        $('#delete-modal').modal('show');
+
+        $('#delete-modal button#accept').click(function(){
+          // получим установленный id елемента кнопки удаления
+          const id = $(this).data('remove-id');
+          clients.splice(id, 1);
+          $('tr[data-id='+id+']').remove();
+        });
       });
     });
   };
 
-  $(document).on('addClient', renderClient);
+  $(document).on('addClient', renderClients);
 
   const name = $('#name input');
   const weight = $('#weight input');
   const height = $('#height input');
   const age = $('#age input');
 
-  const currentId = function getCurrentId(){
-    return 0;
-  };
   //генерируем индекс
   let index = 0;
-  const id = function incrementId(){
-    return index+=1;
-  };
-
-  //функция удаления строки с запросом на подтверждение
-  const removeRow = function removeRow(){
-    //при клике на кнопку удаляется строка с аналогичным селектором
-    $('[data-id]').click(function(){
-      let thisIndex = this;
-      //const currentId = thisIndex.getAttribute('data-id')-1;
-      console.log('hey');
-      $('#delete-modal').modal('show');
-      $('#delete-modal button#accept').click(function(){
-        clients.splice(currentId, 1);
-        $(thisIndex).remove();
-      });
-    });
-  };
-  //добавляем кнопку для удаления строки
-  const x = function x(){
-    return '<input type="button" data-id="'+index+'" class="btn btn-danger btn-xs" value="x">';
+  const incrementId = function() {
+    return index += 1;
   };
 
   const isInvalid = function isInvalid() {
@@ -113,10 +104,14 @@ $(document).ready(function(){
     };
 
     $('#tb').empty();
-    id();
-    addClient();
+    clients.push({ id: incrementId(),
+                   name: name.val(),
+                   weight: weight.val(),
+                   height: height.val(),
+                   age: age.val(),
+                   calories: result,
+                 });
     $(document).trigger('addClient');
-    removeRow();
 
     $('.modal-body').append(result + ' kkal');
 
