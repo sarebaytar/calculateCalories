@@ -1,49 +1,54 @@
 $(document).ready(function(){
+  let clients = [];
+
+  const renderClients = function() {
+    clients.forEach(function(element) {
+      // создатим жквери-объект
+      const row = $(
+        '<tr class="client" data-id="'+element.id+'"><td>'+element.id+'</td><td>'
+        +element.name+'</td><td>'
+        +element.weight+'</td><td>'
+        +element.height+'</td><td>'
+        +element.age+'</td><td>'
+        +element.calories+'</td>'
+        +'<td><input type="button" data-id="'+element.id+'" class="btn btn-danger btn-xs remove" value="x"></td></tr>'
+      );
+
+      // просто аппендим готовый жквери объект (или строку).
+      $('#tb').append(row);
+
+      //при клике на кнопку удаляется строка с аналогичным селектором
+      //с помощью find поиск будет только внутри элемента, на котором вызываешь find.
+      //заметь, что я стараюсь не использовать переменные из внешнего скоупа
+      row.find('input.remove').click(function(){
+        const removeButton = $(this);
+        const id = removeButton.data('id');
+        console.log('hey');
+        // во время клика, установим текущий id елемента кнопки удаления
+        $('#delete-modal button#accept').data('remove-id', id);
+        $('#delete-modal').modal('show');
+
+        $('#delete-modal button#accept').click(function(){
+          // получим установленный id елемента кнопки удаления
+          const id = $(this).data('remove-id');
+          clients.splice(id, 1);
+          $('tr[data-id='+id+']').remove();
+        });
+      });
+    });
+  };
+
+  $(document).on('addClient', renderClients);
 
   const name = $('#name input');
   const weight = $('#weight input');
   const height = $('#height input');
   const age = $('#age input');
+
   //генерируем индекс
   let index = 0;
-  const id = function incrementId(){
-    return index+=1;
-  };
-  //функция удаления строки
-  /*const removeRow = function removeRow(){
-    $('#'+index).click(function(){
-      $(this).parent().parent().remove();
-    });
-  };*/
-  //функция удаления строки с запросом на подтверждение
-  const removeRow = function removeRow(){
-    $('[data-id="'+index+'"]').click(function(){
-      let thisIndex = this;
-      $('#delModal').modal('show');
-      $('#accept').click(function(){
-        $(thisIndex).remove();
-      });
-    });
-  };
-  //добавляем кнопку для удаления строки
-  const x = function x(){
-    return '<input type="button" data-id="'+index+'" class="btn btn-danger btn-xs" value="x">';
-  };
-  //рисуем строку со значениями
-  const addTableRow = function row(){
-    return '<tr data-id="'+index+'"><td>'+index+'</td><td>'
-    +name.val()+'</td><td>'
-    +weight.val()+'</td><td>'
-    +height.val()+'</td><td>'
-    +age.val()+'</td><td>'
-    +result+'</td><td>'+x()+'</td></tr>';
-  };
-  //добавляем строку в таблицу и присваиваем порядковый номер
-  const addIndex = function addIndex(){
-    $('#tb').append(function(){
-      id();
-      return addTableRow();
-    });
+  const incrementId = function() {
+    return index += 1;
   };
 
   const isInvalid = function isInvalid() {
@@ -97,6 +102,17 @@ $(document).ready(function(){
     } else {
       result = Math.round(66.5 + 13.75 * weight.val() + 5.003 * height.val() - 6.775 * age.val());
     };
+
+    $('#tb').empty();
+    clients.push({ id: incrementId(),
+                   name: name.val(),
+                   weight: weight.val(),
+                   height: height.val(),
+                   age: age.val(),
+                   calories: result,
+                 });
+    $(document).trigger('addClient');
+
     $('.modal-body').append(result + ' kkal');
 
     $('#myModal').modal('show');
@@ -104,8 +120,6 @@ $(document).ready(function(){
 
   //Очищаем форму и модалку
   $('#myModal').on('hidden.bs.modal', function(){
-    addIndex();
-    removeRow();
     $('form')[0].reset();
     $('.modal-body').html('');
     $('#name, #weight, #height, #age').attr('class', 'form-group');
