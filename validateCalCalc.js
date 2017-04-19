@@ -23,7 +23,6 @@ $(document).ready(function(){
       row.find('input.remove').click(function(){
         const removeButton = $(this);
         const id = removeButton.data('id');
-        console.log('hey');
         // во время клика, установим текущий id елемента кнопки удаления
         $('#delete-modal button#accept').data('remove-id', id);
         $('#delete-modal').modal('show');
@@ -31,7 +30,15 @@ $(document).ready(function(){
         $('#delete-modal button#accept').click(function(){
           // получим установленный id елемента кнопки удаления
           const id = $(this).data('remove-id');
-          clients.splice(id, 1);
+          // id для удаления из массива
+          const idClient = function() {
+            clients.find(function(element, i){
+              if (element.id === id) {
+                return clients.splice(i, 1);
+              };
+            });
+          };
+          idClient();
           $('tr[data-id='+id+']').remove();
         });
       });
