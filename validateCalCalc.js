@@ -30,15 +30,12 @@ $(document).ready(function(){
         $('#delete-modal button#accept').click(function(){
           // получим установленный id елемента кнопки удаления
           const id = $(this).data('remove-id');
-          // id для удаления из массива
-          const idClient = function() {
-            clients.find(function(element, i){
-              if (element.id === id) {
-                return clients.splice(i, 1);
-              };
-            });
-          };
-          idClient();
+          
+          clients.find(function(element, i){
+            if (element.id === id){
+              return clients.splice(i, 1);
+            };
+          });
           $('tr[data-id='+id+']').remove();
         });
       });
