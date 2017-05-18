@@ -15,7 +15,7 @@
     crossorigin="anonymous">
 
   </head>
-  <body ng-controller='CalcController'>
+  <body ng-controller='CalcController as calcCtrl'>
     <div class="container text-center">
 
         <h1>Рассчитайте свою суточную норму калорий</h1>
@@ -35,14 +35,14 @@
           </div>
           <div class="radio-inline">
             <label>
-              <input type="radio" name="sex" value="female" ng-model="female">Женщина
+              <input type="radio" name="sex" value="female" ng-model="calcCtrl.female">Женщина
             </label>
           </div>
 
           <div id="name" class="form-group">
             <label for="nameInput" class="col-sm-4 text-right">Имя</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nameInput" placeholder="Введите свое имя" ng-model="newName">
+              <input type="text" class="form-control" id="nameInput" placeholder="Введите свое имя" ng-model="calcCtrl.client.name">
             <!--<span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
               <span id="successName" class="sr-only">(success)</span>
               <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
@@ -53,7 +53,7 @@
           <div id="weight" class="form-group">
             <label for="weightInput" class="col-sm-4 text-right">Вес</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="weightInput" placeholder="Введите свой вес" ng-model="newWeight">
+              <input type="text" class="form-control" id="weightInput" placeholder="Введите свой вес" ng-model="calcCtrl.client.weight">
               <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
               <span id="successWeight" class="sr-only">(success)</span>
               <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
@@ -64,7 +64,7 @@
           <div id="height" class="form-group">
             <label for="heightInput" class="col-sm-4 text-right">Рост</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="heightInput" placeholder="Введите свой рост" ng-model="newHeight">
+              <input type="text" class="form-control" id="heightInput" placeholder="Введите свой рост" ng-model="calcCtrl.client.height">
               <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
               <span id="successHeight" class="sr-only">(success)</span>
               <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
@@ -75,7 +75,7 @@
           <div id="age" class="form-group">
             <label for="ageInput" class="col-sm-4 text-right">Возраст</label>
             <div class="col-sm-4">
-              <input type="number" min="1" max="100" class="form-control" id="ageInput" placeholder="Введите свой возраст" ng-model="newAge">
+              <input type="number" min="1" max="100" class="form-control" id="ageInput" placeholder="Введите свой возраст" ng-model="calcCtrl.client.age">
               <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
               <span id="successAge" class="sr-only">(success)</span>
               <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
@@ -83,7 +83,7 @@
             </div>
           </div>
 
-        <p><input type="submit" value="Рассчитать" id="but" class="btn btn-primary" ng-click="addClient()"></p>
+        <p><input type="submit" value="Рассчитать" id="but" class="btn btn-primary" ng-click="calcCtrl.addClient()" ></p>
 
         <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-sm" role="document">
@@ -117,7 +117,7 @@
           </tr>
         </thead>
         <tbody id='tb'>
-          <tr ng-repeat="client in clients">
+          <tr ng-repeat="client in calcCtrl.clients">
             <td>{{client.id}}</td>
             <td>{{client.name}}</td>
             <td>{{client.weight}}</td>
@@ -154,6 +154,6 @@
     <!-- Подключаем AngularJS -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
     <!--script src="validateCalCalc.js"></script -->
-    <script src="calc.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
