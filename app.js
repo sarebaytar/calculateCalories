@@ -2,21 +2,20 @@
 
   var app = angular.module('calc', []);
 
-  var clients = [];
-
   app.controller('CalcController', function(){
+    var clients = [];
     this.clients = clients;
 
     this.client = {};
 
     this.addClient = function() {
-      this.client.result = this.result();
+      this.client.result = this.calculateResult();
       this.client.id = this.incrementId();
       clients.push(this.client);
       this.client = {};
     };
 
-    this.result = function(){
+    this.calculateResult = function(){
       if (this.female) {
         return Math.round(655.1 + 9.563 * this.client.weight + 1.85 * this.client.height - 4.676 * this.client.age);
       } else {
