@@ -2,17 +2,20 @@
 
   var app = angular.module('calc', []);
 
-  app.controller('CalcController', function(){
-    var clients = [];
-    this.clients = clients;
+  app.controller('CalcController', function($scope, incrementId){
+
+    this.clients = [];
+
+    this.id = incrementId.id();
 
     this.client = {};
 
     this.addClient = function() {
       this.client.result = this.calculateResult();
-      this.client.id = this.incrementId();
-      clients.push(this.client);
+      //this.client.id = this.incrementId();
+      this.clients.push(this.client);
       this.client = {};
+      console.log(this.id);
     };
 
     this.calculateResult = function(){
@@ -23,12 +26,12 @@
       }
     };
 
-    var index = 1;
+    /*var index = 1;
     this.incrementId = function(){
       return index++;
     };
 
-    /*this.addClient = function(){
+    this.addClient = function(){
       clients.push({
         id: this.incrementId(),
         name: this.newName,
