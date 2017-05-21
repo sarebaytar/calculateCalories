@@ -15,7 +15,7 @@
     crossorigin="anonymous">
 
   </head>
-  <body ng-controller='CalcController as calcCtrl'>
+  <body ng-controller='CalcController as calcCtrl' ng-submit='calcCtrl.addClient()'>
     <div class="container text-center">
 
         <h1>Рассчитайте свою суточную норму калорий</h1>
@@ -42,7 +42,7 @@
           <div id="name" class="form-group">
             <label for="nameInput" class="col-sm-4 text-right">Имя</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nameInput" placeholder="Введите свое имя" ng-model="calcCtrl.client.name">
+              <input type="text" class="form-control" id="nameInput" placeholder="Введите свое имя" ng-model="calcCtrl.client.name" required>
             <!--<span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
               <span id="successName" class="sr-only">(success)</span>
               <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
@@ -54,9 +54,9 @@
             <label for="weightInput" class="col-sm-4 text-right">Вес</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="weightInput" placeholder="Введите свой вес" ng-model="calcCtrl.client.weight">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
+              <span class="glyphicon glyphicon-ok form-control-feedback success hide"></span>
               <span id="successWeight" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
+              <span class="glyphicon glyphicon-remove form-control-feedback error hide"></span>
               <span id="errorWeight" class="sr-only">(error)</span>
             </div>
           </div>
@@ -65,9 +65,9 @@
             <label for="heightInput" class="col-sm-4 text-right">Рост</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="heightInput" placeholder="Введите свой рост" ng-model="calcCtrl.client.height">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
+              <span class="glyphicon glyphicon-ok form-control-feedback success hide"></span>
               <span id="successHeight" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
+              <span class="glyphicon glyphicon-remove form-control-feedback error hide"></span>
               <span id="errorHeight" class="sr-only">(error)</span>
             </div>
           </div>
@@ -76,14 +76,14 @@
             <label for="ageInput" class="col-sm-4 text-right">Возраст</label>
             <div class="col-sm-4">
               <input type="number" min="1" max="100" class="form-control" id="ageInput" placeholder="Введите свой возраст" ng-model="calcCtrl.client.age">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
+              <span class="glyphicon glyphicon-ok form-control-feedback success hide"></span>
               <span id="successAge" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
+              <span class="glyphicon glyphicon-remove form-control-feedback error hide"></span>
               <span id="errorAge" class="sr-only">(error)</span>
             </div>
           </div>
 
-        <p><input type="submit" value="Рассчитать" id="but" class="btn btn-primary" ng-click="calcCtrl.addClient()" ></p>
+        <p><input type="submit" value="Рассчитать" id="but" class="btn btn-primary"></p>
 
         <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-sm" role="document">
@@ -128,6 +128,7 @@
           </tr>
         </tbody>
       </table>
+      <cli></cli>
 
       <div ng-hide='calcCtrl.clients.length'><h3>Клиентов пока нет</h3></div>
 
@@ -157,5 +158,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
     <!--script src="validateCalCalc.js"></script -->
     <script src="app.js"></script>
+    <script src="services/idProvider.js"></script>
+    <script src="directives/client.js"></script>
   </body>
 </html>
