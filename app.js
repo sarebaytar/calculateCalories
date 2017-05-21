@@ -6,16 +6,13 @@
 
     this.clients = [];
 
-    this.id = incrementId.id();
-
     this.client = {};
 
     this.addClient = function() {
       this.client.result = this.calculateResult();
-      //this.client.id = this.incrementId();
+      this.client.id = incrementId();
       this.clients.push(this.client);
       this.client = {};
-      console.log(this.id);
     };
 
     this.calculateResult = function(){

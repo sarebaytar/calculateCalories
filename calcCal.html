@@ -15,7 +15,7 @@
     crossorigin="anonymous">
 
   </head>
-  <body ng-controller='CalcController as calcCtrl' ng-submit='calcCtrl.addClient()'>
+  <body ng-controller='CalcController as calcCtrl' ng-submit='formV.$valid && calcCtrl.addClient()' novalidate>
     <div class="container text-center">
 
         <h1>Рассчитайте свою суточную норму калорий</h1>
@@ -26,7 +26,7 @@
           пол, вес, рост и возраст
         </p>
 
-        <form class="form-horizontal" ng-model="formClient">
+        <form class="form-horizontal" ng-model="formClient" name="formV">
 
           <div class="radio-inline">
             <label>
@@ -43,43 +43,29 @@
             <label for="nameInput" class="col-sm-4 text-right">Имя</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="nameInput" placeholder="Введите свое имя" ng-model="calcCtrl.client.name" required>
-            <!--<span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
-              <span id="successName" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
-              <span id="errorName" class="sr-only">(error)</span>-->
             </div>
           </div>
 
           <div id="weight" class="form-group">
             <label for="weightInput" class="col-sm-4 text-right">Вес</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="weightInput" placeholder="Введите свой вес" ng-model="calcCtrl.client.weight">
-              <span class="glyphicon glyphicon-ok form-control-feedback success hide"></span>
-              <span id="successWeight" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback error hide"></span>
-              <span id="errorWeight" class="sr-only">(error)</span>
+              <input type="text" class="form-control" name="weight" id="weightInput" placeholder="Введите свой вес" ng-model="calcCtrl.client.weight" ng-pattern="/^\d+$/">
+              <span class="help-block" ng-show="formV.weight.$error.pattern">Введите корректный вес</span>
             </div>
           </div>
 
           <div id="height" class="form-group">
             <label for="heightInput" class="col-sm-4 text-right">Рост</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="heightInput" placeholder="Введите свой рост" ng-model="calcCtrl.client.height">
-              <span class="glyphicon glyphicon-ok form-control-feedback success hide"></span>
-              <span id="successHeight" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback error hide"></span>
-              <span id="errorHeight" class="sr-only">(error)</span>
+              <input type="text" class="form-control" id="heightInput" name="height" placeholder="Введите свой рост" ng-model="calcCtrl.client.height" ng-pattern="/^\d+$/">
+              <span class="help-block" ng-show="formV.height.$error.pattern">Введите корректный рост</span>
             </div>
           </div>
 
           <div id="age" class="form-group">
             <label for="ageInput" class="col-sm-4 text-right">Возраст</label>
             <div class="col-sm-4">
-              <input type="number" min="1" max="100" class="form-control" id="ageInput" placeholder="Введите свой возраст" ng-model="calcCtrl.client.age">
-              <span class="glyphicon glyphicon-ok form-control-feedback success hide"></span>
-              <span id="successAge" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback error hide"></span>
-              <span id="errorAge" class="sr-only">(error)</span>
+              <input type="number" min="1" max="100" class="form-control" id="ageInput" placeholder="Введите свой возраст" ng-model="calcCtrl.client.age" required>
             </div>
           </div>
 
