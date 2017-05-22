@@ -39,14 +39,14 @@
             </label>
           </div>
 
-          <div id="name" class="form-group">
+          <div id="name" class="form-group ng-class: {'has-success': calcCtrl.client.name}">
             <label for="nameInput" class="col-sm-4 text-right">Имя</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nameInput" placeholder="Введите свое имя" ng-model="calcCtrl.client.name" required>
+              <input type="text" class="form-control" id="nameInput" placeholder="Введите свое имя" name="name" ng-model="calcCtrl.client.name" required>
             </div>
           </div>
 
-          <div id="weight" class="form-group">
+          <div id="weight" class="form-group ng-class: {'has-success': calcCtrl.client.weight, 'has-error': formV.weight.$error.pattern}">
             <label for="weightInput" class="col-sm-4 text-right">Вес</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" name="weight" id="weightInput" placeholder="Введите свой вес" ng-model="calcCtrl.client.weight" ng-pattern="/^\d+$/">
@@ -54,7 +54,7 @@
             </div>
           </div>
 
-          <div id="height" class="form-group">
+          <div id="height" class="form-group ng-class: {'has-success': calcCtrl.client.height, 'has-error': formV.height.$error.pattern}">
             <label for="heightInput" class="col-sm-4 text-right">Рост</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="heightInput" name="height" placeholder="Введите свой рост" ng-model="calcCtrl.client.height" ng-pattern="/^\d+$/">
@@ -62,10 +62,10 @@
             </div>
           </div>
 
-          <div id="age" class="form-group">
+          <div id="age" class="form-group ng-class: {'has-success': calcCtrl.client.age}">
             <label for="ageInput" class="col-sm-4 text-right">Возраст</label>
             <div class="col-sm-4">
-              <input type="number" min="1" max="100" class="form-control" id="ageInput" placeholder="Введите свой возраст" ng-model="calcCtrl.client.age" required>
+              <input type="number" min="1" max="100" class="form-control" name="age" id="ageInput" placeholder="Введите свой возраст" ng-model="calcCtrl.client.age" required>
             </div>
           </div>
 
