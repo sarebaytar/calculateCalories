@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='calc'>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
     crossorigin="anonymous">
 
   </head>
-  <body>
+  <body ng-controller='CalcController as calcCtrl' ng-submit='formV.$valid && calcCtrl.addClient()'>
     <div class="container text-center">
 
         <h1>Рассчитайте свою суточную норму калорий</h1>
@@ -26,7 +26,7 @@
           пол, вес, рост и возраст
         </p>
 
-        <form class="form-horizontal">
+        <form class="form-horizontal" ng-model="formClient" name="formV">
 
           <div class="radio-inline">
             <label>
@@ -35,51 +35,37 @@
           </div>
           <div class="radio-inline">
             <label>
-              <input type="radio" name="sex" value="female">Женщина
+              <input type="radio" name="sex" value="female" ng-model="calcCtrl.female">Женщина
             </label>
           </div>
 
-          <div id="name" class="form-group">
+          <div id="name" class="form-group ng-class: {'has-success': calcCtrl.client.name}">
             <label for="nameInput" class="col-sm-4 text-right">Имя</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nameInput" required placeholder="Введите свое имя">
-            <!--<span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
-              <span id="successName" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
-              <span id="errorName" class="sr-only">(error)</span>-->
+              <input type="text" class="form-control" id="nameInput" placeholder="Введите свое имя" name="name" ng-model="calcCtrl.client.name" required>
             </div>
           </div>
 
-          <div id="weight" class="form-group">
+          <div id="weight" class="form-group ng-class: {'has-success': calcCtrl.client.weight, 'has-error': formV.weight.$error.pattern}">
             <label for="weightInput" class="col-sm-4 text-right">Вес</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="weightInput" placeholder="Введите свой вес">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
-              <span id="successWeight" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
-              <span id="errorWeight" class="sr-only">(error)</span>
+              <input type="text" class="form-control" name="weight" id="weightInput" placeholder="Введите свой вес" ng-model="calcCtrl.client.weight" ng-pattern="/^\d+$/" required>
+              <span class="help-block" ng-show="formV.weight.$error.pattern">Введите корректный вес</span>
             </div>
           </div>
 
-          <div id="height" class="form-group">
+          <div id="height" class="form-group ng-class: {'has-success': calcCtrl.client.height, 'has-error': formV.height.$error.pattern}">
             <label for="heightInput" class="col-sm-4 text-right">Рост</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="heightInput" placeholder="Введите свой рост">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
-              <span id="successHeight" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
-              <span id="errorHeight" class="sr-only">(error)</span>
+              <input type="text" class="form-control" id="heightInput" name="height" placeholder="Введите свой рост" ng-model="calcCtrl.client.height" ng-pattern="/^\d+$/" required>
+              <span class="help-block" ng-show="formV.height.$error.pattern">Введите корректный рост</span>
             </div>
           </div>
 
-          <div id="age" class="form-group">
+          <div id="age" class="form-group ng-class: {'has-success': calcCtrl.client.age}">
             <label for="ageInput" class="col-sm-4 text-right">Возраст</label>
             <div class="col-sm-4">
-              <input type="number" min="1" max="100" class="form-control" id="ageInput" placeholder="Введите свой возраст">
-              <span class="glyphicon glyphicon-ok form-control-feedback hide success"></span>
-              <span id="successAge" class="sr-only">(success)</span>
-              <span class="glyphicon glyphicon-remove form-control-feedback hide error"></span>
-              <span id="errorAge" class="sr-only">(error)</span>
+              <input type="number" min="1" max="100" class="form-control" name="age" id="ageInput" placeholder="Введите свой возраст" ng-model="calcCtrl.client.age" required>
             </div>
           </div>
 
@@ -104,7 +90,7 @@
 
       </form>
 
-      <table class="table table-bordered table-striped text-center">
+      <table class="table table-bordered table-striped text-center table-hover">
         <thead>
           <tr>
             <td>ID</td>
@@ -117,8 +103,20 @@
           </tr>
         </thead>
         <tbody id='tb'>
+          <tr ng-repeat="client in calcCtrl.clients">
+            <td>{{client.id}}</td>
+            <td>{{client.name}}</td>
+            <td>{{client.weight}}</td>
+            <td>{{client.height}}</td>
+            <td>{{client.age}}</td>
+            <td>{{client.result}}</td>
+            <td>Click for remove</td>
+          </tr>
         </tbody>
       </table>
+      <cli></cli>
+
+      <div ng-hide='calcCtrl.clients.length'><h3>Клиентов пока нет</h3></div>
 
       <div id="delete-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
@@ -142,6 +140,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
-    <script src="validateCalCalc.js"></script>
+    <!-- Подключаем AngularJS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <!--script src="validateCalCalc.js"></script -->
+    <script src="app.js"></script>
+    <script src="services/idProvider.js"></script>
+    <script src="directives/client.js"></script>
   </body>
 </html>
